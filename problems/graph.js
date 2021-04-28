@@ -50,7 +50,7 @@ class Graph {
 
       // }
 //+++++++++++++++++++++++++++++++++//
-  
+
 
 
 
@@ -97,12 +97,57 @@ class Graph {
 
 
   depthFirstTraversalRecursive(startingVertex, visited = new Set(), vertices = []) {
+    if(visited.has(startingVertex)) return;
 
-    
+    visited.add(startingVertex)
+    vertices.push(startingVertex)
+    debugger
+    this.adjList[startingVertex].forEach((neighbor) => {
+
+      this.depthFirstTraversalRecursive(neighbor, visited, vertices)
+    })
+
+    return vertices;
   }
 
 }
 
+let graph = new Graph();
+
+const graph1 = {
+    a: ['b', 'c', 'd'],
+    b: ['a', 'c', 'e'],
+    c: ['a', 'b', 'f', 'g'],
+    d: ['a', 'g'],
+    g: ['d', 'c', 'f'],
+    e: ['b'],
+    f: ['c', 'g']
+}
+const edges =
+[['a', 'b'],
+['a', 'c'],
+['a', 'd'],
+['d', 'g'],
+['b', 'c'],
+['b', 'e'],
+['c', 'f'],
+['c', 'g'],
+['f', 'g'],
+['h']]
+
+graph.buildGraph(edges)
+graph.depthFirstTraversalRecursive('a')
+
+
+
 module.exports = {
   Graph
 };
+
+// a: ['b', 'c', 'd'],
+// b: ['a', 'c', 'e'],
+// c: ['a', 'b', 'f', 'g'],
+// d: ['a', 'g'],
+// g: ['d', 'c', 'f'],
+// e: ['b'],
+// f: ['c', 'g']
