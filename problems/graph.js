@@ -95,10 +95,10 @@ class Graph {
     return store;
   }
 
-  depthFirstTraversalRecursive(startingVertex, visited = new Set(), vertices = []) {
-    
-    
 
+  depthFirstTraversalRecursive(startingVertex, visited = new Set(), vertices = []) {
+
+    
   }
 
 }
