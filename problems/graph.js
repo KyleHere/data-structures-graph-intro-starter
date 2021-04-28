@@ -38,36 +38,70 @@ class Graph {
     }
     return this.adjList;
   }
+//+++++++Also VVV++++++++++++++++//
+      // buildGraph(edges) {
+      //   // edges is a 2d array, e.g.: [[“a”, b”], [“b”, c”]]
+      //   // this.adjList = {“a”: [b], “b”: [c]}
+      //       edges.forEach(pair => {
+      //     this.addVertex(pair[0]);
+      //     this.addEdges(pair[0], pair[1]);
+      //   });
+      //   return this.adjList;
+
+      // }
+//+++++++++++++++++++++++++++++++++//
+  
+
+
 
   breadthFirstTraversal(startingVertex) {
+    let queue = [startingVertex]; //initialize queue
     let store = [];
-    let queue = [startingVertex]
-    let visited = new Set();
+    let checked = new Set();
 
     while(queue.length){
-      let shifted = queue.shift();
-      if(visited.has(shifted)) continue;
+      //checking for duplicate nodes
+      let shiftedVertex = queue.shift();
+      if(checked.has(shiftedVertex)) continue; //if already visited
 
-      visited.add(shifted)
-      store.push(shifted)
-      queue.push(...this.adjList[shifted])
+      //account for already visited verts
+      checked.add(shiftedVertex); //add to visited
+      store.push(shiftedVertex);  //add to existing network of vertex
 
+      //add all neighbors to queue
+      queue.push(...this.adjList[shiftedVertex]); //add all neighbors to queue
     }
+
     return store;
   }
 
   depthFirstTraversalIterative(startingVertex) {
-    // Code goes here ...
+
+    let store = [];
+    let stack = [startingVertex];
+    let visited = new Set();
+
+    while(stack.length){
+      let popped = stack.pop();
+      if(visited.has(popped)) continue;
+
+      visited.add(popped);
+      store.push(popped);
+
+
+      stack.push(...this.adjList[popped]);
+    }
+
+    return store;
   }
 
   depthFirstTraversalRecursive(startingVertex, visited = new Set(), vertices = []) {
-    // Code goes here ...
+    
+    
+
   }
 
 }
-
-let graff = new Graph();
-console.log(graff.adjList[0]);
 
 module.exports = {
   Graph
