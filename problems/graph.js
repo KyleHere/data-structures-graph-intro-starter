@@ -9,7 +9,7 @@ class Graph {
   }
 
   addEdges(srcValue, destValue) {
-    if(!this.adjList[srcValue]) this.addVertex(srcValue); 
+    if(!this.adjList[srcValue]) this.addVertex(srcValue);
     if(!this.adjList[destValue]) this.addVertex(destValue);
 
     // this.adjList[srcValue].push(destValue);
@@ -23,11 +23,37 @@ class Graph {
   }
 
   buildGraph(edgeList) {
+    // console.log(edgeList)
 
+    for(let i = 0; i < edgeList.length; i++){
+
+        let vertex1 = edgeList[i][0];
+        // console.log(vertex1)
+        let vertex2 = edgeList[i][1];
+
+        this.addVertex(vertex1);
+        this.addVertex(vertex2);
+
+        this.addEdges(vertex1, vertex2);
+    }
+    return this.adjList;
   }
 
   breadthFirstTraversal(startingVertex) {
-    // Code goes here ...
+    let store = [];
+    let queue = [startingVertex]
+    let visited = new Set();
+
+    while(queue.length){
+      let shifted = queue.shift();
+      if(visited.has(shifted)) continue;
+
+      visited.add(shifted)
+      store.push(shifted)
+      queue.push(...this.adjList[shifted])
+
+    }
+    return store;
   }
 
   depthFirstTraversalIterative(startingVertex) {
@@ -46,12 +72,3 @@ console.log(graff.adjList[0]);
 module.exports = {
   Graph
 };
-
-
-
-
-
-
-
-
-
